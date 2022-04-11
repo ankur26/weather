@@ -1,0 +1,20 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "We implement an app with basic weather functionality with a location input, this project is the first where we will be using an API to fetch data and display on the interface, as seen of most applications/websites.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankur26/weather.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ankur26/weather/issues"
+  },
+  "homepage": "https://github.com/ankur26/weather#readme"
+}
