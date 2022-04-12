@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Weather</h1>
+            <nav>
+                <ul>
+                    <li><a href="https://github.com/ankur26/weather" target="_blank">Link to Repo</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="location-input">
+                <form action="index" method="post" id="location-form">
+                    <div class="location-div">
+                        <label for="location">Location</label>
+                        <input type="text" name="location" id="location" list="cities" required>
+                        <datalist id="cities">
+                        </datalist>
+                    </div>
+                    <div class="buttons">
+                        <button type="submit">Submit</button>
+                        <button type="reset">Reset</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="content">
+                <h2>Weather for New York</h2>
+                <div class="today"></div>
+                <div class="five-day"></div>
+            </div>
+        </main>
+        <footer>
+            Ankur Bhatkalkar | <a href="https://www.github.com/ankur26">Github</a> | <a
+                href="https://www.linkedin.com/in/ankur-bhatkalkar">LinkedIn</a> | <a
+                href="mailto:ankur.bhatkalkar@nyu.edu">Contact</a>
+        </footer>
+    </div>
+    <script src="bundle.js"></script>
+</body>
+
+</html>
