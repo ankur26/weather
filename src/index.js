@@ -1,6 +1,7 @@
 import './style.css';
 import { locationHelper } from './location';
 import { DateTime } from "luxon";
+import './style.css';
 
 let apiKey = '0acdff13de270dada10b3efcc35c537b';
 let units = 'metric';
@@ -15,7 +16,7 @@ const DOMcontrols = (() => {
 	async function getWeatherData(event) {
 		event.preventDefault();
 		try {
-			let responseCurrentWeather = await fetch(
+            let responseCurrentWeather = await fetch(
 				`https://api.openweathermap.org/data/2.5/weather?q=${locationInput.value}&units=${units}&appid=${apiKey}`
 			);
             let currentWeatherdata = await responseCurrentWeather.json();
@@ -27,7 +28,8 @@ const DOMcontrols = (() => {
 
             populateCurrentWeather(currentWeatherdata);
             populateFiveDayWeather(fiveDayWeather);
-
+            locationInput.value = '';
+            
 		} catch (error) {
 			console.log(error);
 		}
@@ -42,7 +44,7 @@ const DOMcontrols = (() => {
 
         date.textContent = DateTime.fromSeconds(parseInt(weather.dt)).toLocal().toLocaleString(DateTime.DATE_FULL);
         mintemp.textContent = `Min : ${weather.temp.min}${unit}`;
-        maxtemp.textContent = `Max : ${weather.temp.min}${unit}`;
+        maxtemp.textContent = `Max : ${weather.temp.max}${unit}`;
         description.textContent = `${locationHelper.capitalize(weather.weather[0].description)}`;
 
         div.appendChild(date);
