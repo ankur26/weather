@@ -3,13 +3,16 @@ import Cities from './worldcities.csv';
 const locationHelper = (() => {
 	let cities = [];
 
+	function capitalize(str) {
+		return str.replace(/^\w/, (c) => c.toUpperCase());
+	}
 	// function display(){
 	//     // console.log(cities[0]);
 	//     // console.log("Something");
 	// }
 
 	function query(input) {
-		console.log(input);
+		// console.log(input);
 		if (typeof input === 'string') {
 			let cityQuery = cities.filter((city, index) => {
 				if (city.hasOwnProperty('city_ascii')) {
@@ -20,10 +23,11 @@ const locationHelper = (() => {
 
 			if (cityQuery) {
 				if (cityQuery.length > 5) {
-					return cityQuery.slice(0, 4).map((city) => `${city['city_ascii']}, ${city['country']}`);
-				} else {
-					return cityQuery.map((city) => `${city['city_ascii']}, ${city['country']}`);
+					return cityQuery
+						.slice(0, 4)
+						.map((city) => `${capitalize(city['city_ascii'])}, ${capitalize(city['country'])}`);
 				}
+				return cityQuery.map((city) => `${capitalize(city['city_ascii'])}, ${capitalize(city['country'])}`);
 			}
 		}
 	}
@@ -53,7 +57,7 @@ const locationHelper = (() => {
 	function initialize() {
 		processCityData();
 	}
-	return { initialize, query };
+	return { initialize, query ,capitalize};
 })();
 
 export { locationHelper };
