@@ -13,6 +13,7 @@ const DOMcontrols = (() => {
 	let locationInput = document.getElementById('location');
     let today = document.querySelector('.today');
     let fiveday = document.querySelector('.five-day');
+    let content = document.querySelector('.content');
 	async function getWeatherData(event) {
 		event.preventDefault();
 		try {
@@ -32,32 +33,30 @@ const DOMcontrols = (() => {
             
 		} catch (error) {
 			console.log(error);
+            showErrorMessage();
 		}
 	}
+    function showErrorMessage(){
+        today.classList.add('none');
+        fiveday.classList.add('none');
+        let error = document.createElement('h2');
+        error.textContent= 'Something went wrong please try again';
+        content.appendChild(error);
+        setTimeout(()=>{content.removeChild(error)},5000);
+    }
     function createFiveDayDiv(weather){
         let div = document.createElement('div');
-        let date = document.createElement('h2');
-        let mintemp = document.createElement('h3');
-        let maxtemp = document.createElement('h3');
-        let description = document.createElement('h3');
+        let text = document.createElement('p');
         
-
-        date.textContent = DateTime.fromSeconds(parseInt(weather.dt)).toLocal().toLocaleString(DateTime.DATE_FULL);
-        mintemp.textContent = `Min : ${weather.temp.min}${unit}`;
-        maxtemp.textContent = `Max : ${weather.temp.max}${unit}`;
-        description.textContent = `${locationHelper.capitalize(weather.weather[0].description)}`;
-
-        div.appendChild(date);
-        div.appendChild(description);
-        div.appendChild(maxtemp);
-        div.appendChild(mintemp);
-
+        text.innerHTML = `${DateTime.fromSeconds(parseInt(weather.dt)).toLocal().toLocaleString(DateTime.DATE_FULL)}: ${locationHelper.capitalize(weather.weather[0].description)}<img src="http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png"><br>Range:<span class="max">${weather.temp.max}${unit}</span> - <span class="min">${weather.temp.min}${unit}</span> `;
+        
+        div.appendChild(text);
         return div;
 
     }
     function populateFiveDayWeather(fiveDayWeather){
         // DateTime.fromSeconds(parseInt(weather.dt)).toLocal().toLocaleString(DateTime.DATE_FULL)
-        fiveday.innerHTML = '';
+        fiveday.innerHTML = '<h2>Weather for next five days</h2>';
         console.log(fiveDayWeather);
         fiveDayWeather.daily.forEach((weather,index)=>{
             if(index >= 1 && index <= 5){
@@ -65,6 +64,7 @@ const DOMcontrols = (() => {
                 fiveday.appendChild(div);
             }
         });
+        fiveday.classList.remove('none');
 
     }
     function populateCurrentWeather(current){
@@ -80,18 +80,18 @@ const DOMcontrols = (() => {
         
         city.textContent = `Weather for ${current.name}`;
         temp.textContent = `Current Temperature : ${parseFloat(current.main.temp)} ${unit}`;
-        description.textContent = `Condition : ${locationHelper.capitalize(current.weather[0].description)}`;
-        feelslike.textContent = `Feels like : ${parseFloat(current.main.feels_like)}`;
+        description.innerHTML = `Condition : ${locationHelper.capitalize(current.weather[0].description)} <img src="http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png">`;
+        feelslike.textContent = `Feels like : ${parseFloat(current.main.feels_like)}${unit}`;
         wind.textContent = `Wind Speed : ${current.wind.speed} km/h`;
-        tempRange.textContent = `Max : ${current.main.temp_max}${unit}, Min : ${current.main.temp_min}${unit}`;
-        
+        tempRange.innerHTML = `Max : <span class="max">${current.main.temp_max}${unit}</span>, Min : <span class="min">${current.main.temp_min}${unit}</span>`;
+        today
         today.appendChild(city);
         today.appendChild(temp);
         today.appendChild(description);
         today.appendChild(feelslike);
         today.appendChild(wind);
         today.appendChild(tempRange);
-        
+        today.classList.remove('none');
         // console.log(current);
 
 
